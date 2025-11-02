@@ -16,7 +16,7 @@ class PendaftaranMagangController extends Controller
         return view('admin.pendaftaran', compact('pendaftar'));
     }
 
-     public function edit(Request $request, $id) 
+     public function edit(Request $request, $id)
      {
         $pendaftar = PendaftaranMagang::findOrFail($id);
         return view('admin.manajemen_pendaftar', compact('pendaftar'));
@@ -27,13 +27,13 @@ class PendaftaranMagangController extends Controller
         // Validasi input, surat_balasan dan surat_selesai optional
         $request->validate([
             'surat_balasan' => 'nullable|file|mimes:pdf,jpg,png|max:2048', // max 2MB
-            'surat_selesai' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
+            'surat_selesai' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
         $peserta = PendaftaranMagang::findOrFail($id);
 
         $dataUpdate = [
-            'status' => 'Diterima', // update status
+            'status' => 'diterima', // update status
         ];
 
         // Jika ada file baru surat_balasan
@@ -55,19 +55,20 @@ class PendaftaranMagangController extends Controller
             $file = $request->file('surat_selesai');
             $filename = time().'_'.$file->getClientOriginalName();
             $file->storeAs('public/surat_selesai', $filename);
-            
+
             // Hapus file lama
             if ($peserta->surat_selesai && \Storage::exists('public/surat_selesai/'.$peserta->surat_selesai)) {
                 \Storage::delete('public/surat_selesai/'.$peserta->surat_selesai);
             }
-            
-            $dataUpdate['surat_selesai'] = $filename;
-        }
 
+            $dataUpdate['surat_selesai'] = $filename;
+            $dataUpdate = [
+                'status' => 'selesai', // update status
+            ];
+        }
 
         // Update semua data ke database
         $peserta->update($dataUpdate);
-
         return redirect()->back()
                         ->with('success', 'Data peserta berhasil diperbarui.');
     }
@@ -79,11 +80,11 @@ class PendaftaranMagangController extends Controller
             'status' => 'required|in:diterima,ditolak',
         ]);
 
-        
+
         $pendaftar = PendaftaranMagang::findOrFail($id);
         $pendaftar->status = $request->status;
         $pendaftar->save();
-        
+
         // Jika pendaftaran diterima, buat data peserta
         if ($request->status === 'diterima') {
             Peserta::create([
@@ -95,7 +96,7 @@ class PendaftaranMagangController extends Controller
                 'jurusan' => $pendaftar->prodi,
                 'instansi' => $pendaftar->instansi,
                 'bidang_magang' => $pendaftar->bidang_magang,
-                'status' => 'Terima',
+                'status' => 'diterima',
                 'surat_balasan' => null,
                 'surat_selesai' => null,
             ]);

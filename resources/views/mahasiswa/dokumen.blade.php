@@ -21,18 +21,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $peserta->nama_lengkap }}</td>
-                            <td>{{ $peserta->instansi }}</td>
+                            <td>{{ $peserta?->nama_lengkap }}</td>
+                            <td>{{ $peserta?->instansi }}</td>
                             <td>
-                                @if ($peserta->surat_balasan)
+                                @if ($peserta?->surat_balasan)
                                     <a href="{{ asset('storage/surat_balasan/' . $peserta->surat_balasan) }}" target="_blank">Lihat</a>
                                 @else
                                     <span class="text-muted">Belum tersedia</span>
                                 @endif
                             </td>
                             <td>
-                                @if ($peserta->surat_selesai)
-                                    <a href="{{ asset('storage/dokumen/' . $peserta->surat_selesai) }}" target="_blank">Lihat</a>
+                                @if ($peserta?->surat_selesai)
+                                    <a href="{{ asset('storage/dokumen/' . $peserta?->surat_selesai) }}" target="_blank">Lihat</a>
                                 @else
                                     <span class="text-muted">Belum tersedia</span>
                                 @endif

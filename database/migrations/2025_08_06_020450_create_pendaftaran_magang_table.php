@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
          Schema::create('pendaftaran_magang', function (Blueprint $table) {
-        $table->id();
+        $table->bigInteger('id')->autoIncrement();
         $table->string('nama_lengkap')->nullable();
         $table->string('nim')->nullable();
         $table->string('prodi')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
         $table->string('bidang_magang')->nullable();
         $table->date('mulai_magang')->nullable();
         $table->date('selesai_magang')->nullable();
-        $table->enum('status_akun', ['diterima', 'ditolak', 'pending'])->default('pending');
+        $table->enum('status', ['diterima', 'ditolak', 'pending', 'selesai'])->default('pending');
         $table->timestamps();
         });
     }

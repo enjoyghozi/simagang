@@ -24,7 +24,7 @@
         <tbody>
           @foreach ($pesertas as $peserta)
           <tr>
-            <td>{{ $peserta->nama_lengkap }}</td>
+            <td>{{ $peserta?->nama_lengkap }}</td>
             <td>{{ $peserta->instansi }}</td>
             <td>
               @if ($peserta->surat_balasan)

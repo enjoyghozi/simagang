@@ -44,7 +44,7 @@
                                     <span class="badge badge-success">Diterima</span>
                                 @elseif($status === 'ditolak')
                                     <span class="badge badge-danger">Ditolak</span>
-                                @elseif($status === 'pending' || $item->status === 'Menunggu Verifikasi')
+                                @elseif($status === 'pending' || $item->status === 'pending')
                                     <span class="badge badge-warning">Pending</span>
                                 @else
                                     <span class="badge badge-secondary">{{ $item->status ?? '-' }}</span>
