@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@example.com',
             'instansi' => null,
             'password' => Hash::make('password123'), // ganti password default
-            'role' => 'user', // pastikan kolom role ada di tabel users
+            'role' => 'peserta', // pastikan kolom role ada di tabel users
             'status_akun' => 'diterima', // pastikan kolom role ada di tabel users
         ]);
     }

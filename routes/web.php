@@ -27,20 +27,18 @@ use App\Http\Controllers\Mahasiswa\PesertaController;
 |
 */
 
-Route::get('/', function () {
-    return view('mahasiswa/beranda');
-});
+// Route::get('/', function () {
+//     return view('mahasiswa/beranda');
+// });
 
 Auth::routes();
 
-Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 // Route::middleware(['auth'])->group(function () {
  //   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
 //});
 Route::resource('akun', AkunController::class);
 Route::get('/akun/status/{id}/{status}', [AkunController::class, 'ubahStatus'])->name('akun.status');
@@ -52,7 +50,7 @@ Route::get('/akun/status/{id}/{status}', [AkunController::class, 'ubahStatus'])-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-  
+
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
    // Route::get('/pendaftaran', [PendaftaranMagangController::class, 'index'])->name('pendaftaran');
     Route::resource('pendaftaran', PendaftaranMagangController::class);
@@ -73,7 +71,7 @@ Route::get('/kirim-wa/{id}', [AkunController::class, 'kirimWa'])->name('kirim.wa
 // ROUTE MAHASISWA
 // =======================
 Route::middleware(['auth', 'isPeserta'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
-     Route::get('/', function () {
+     Route::get('/mahasiswa', function () {
         return redirect()->route('mahasiswa.dashboard');
     })->name('mahasiswa.index');
 

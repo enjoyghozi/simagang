@@ -35,7 +35,7 @@ class AkunController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'role' => 'peserta', // default mahasiswa
-            'status_akun' => 'menunggu',
+            'status_akun' => 'pending', // default pending
         ]);
 
         return redirect()->route('akun.index')->with('success', 'Akun berhasil ditambahkan.');
@@ -55,7 +55,7 @@ class AkunController extends Controller
     {
         // $akun->update($request->only('name', 'email', 'role'));
         // return redirect()->route('akun.index')->with('success', 'Akun berhasil diperbarui.');
-    }   
+    }
     public function ubahStatus($id, $status)
     {
         // Cari user berdasarkan ID

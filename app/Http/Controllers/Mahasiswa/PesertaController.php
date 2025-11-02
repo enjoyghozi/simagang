@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Laporan; 
+use App\Models\Laporan;
 use App\Models\MonitoringPenilaian;
 use App\Models\Peserta;
 use App\Models\PendaftaranMagang;
@@ -20,12 +20,12 @@ class PesertaController extends Controller
     {
         $totalLaporan = Laporan::where('id', Auth::id())->count();
         $status = 'Tidak DIketahui';
-        if(auth()->user()->status_akun == "menunggu"){
+        if(auth()->user()->status_akun == "pending"){
             $status = 'Menunggu Verifikasi';
         }elseif(auth()->user()->status_akun == "diterima"){
             $status = 'Diterima';
         }elseif(auth()->user()->status_akun == "ditolak"){
-            $status = 'Ditolak';                
+            $status = 'Ditolak';
         }else{
             $status = 'Tidak DIketahui';
         }
@@ -41,7 +41,7 @@ class PesertaController extends Controller
     {
         return view('mahasiswa.profile');
     }
-    
+
 public function formPendaftaran()
 {
     return view('mahasiswa.pendaftaran');
@@ -69,7 +69,6 @@ public function storePendaftaran(Request $request)
 
     // === Simpan ke database pendaftaran_magang ===
     \DB::table('pendaftaran_magang')->insert([
-        'id' => Str::random(10),
         'nama_lengkap' => $request->nama,
         'nim' => $request->nim,
         'semester' => $request->semester,
@@ -88,22 +87,22 @@ public function storePendaftaran(Request $request)
     ]);
 
     // === Sinkronisasi ke tabel peserta ===
-    $cekPeserta = \App\Models\Peserta::where('id', auth()->id())->first();
+    // $cekPeserta = \App\Models\Peserta::where('id', auth()->id())->first();
 
-    if (!$cekPeserta) {
-        \App\Models\Peserta::create([
-            'id' => auth()->id(),
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'alamat' => $request->alamat,
-            'jurusan' => $request->jurusan,
-            'instansi' => $request->nama_sekolah,
-            'status' => 'Menunggu',
-            'surat_balasan' => null,
-            'surat_selesai' => null,
-        ]);
-    }
+    // if (!$cekPeserta) {
+    //     \App\Models\Peserta::create([
+    //         'id' => auth()->id(),
+    //         'nama' => $request->nama,
+    //         'email' => $request->email,
+    //         'no_hp' => $request->no_hp,
+    //         'alamat' => $request->alamat,
+    //         'jurusan' => $request->jurusan,
+    //         'instansi' => $request->nama_sekolah,
+    //         'status' => 'Menunggu',
+    //         'surat_balasan' => null,
+    //         'surat_selesai' => null,
+    //     ]);
+    // }
 
     return redirect()->route('mahasiswa.dashboard')->with('success', 'Pendaftaran berhasil dikirim, tunggu verifikasi.');
 }
@@ -171,7 +170,7 @@ public function cetakBalasan()
         'nim' => auth()->user()->nim ?? 'NIM12345',
         'jurusan' => auth()->user()->jurusan ?? 'Teknik Informatika',
     ]);
-    
+
     return $pdf->download($peserta->surat_balasan);
 }
 
@@ -210,7 +209,7 @@ public function pesertaTerdaftar()
         //     'no_hp' => 'required',
         //     'alamat' => 'required',
         //     'instansi' => 'required',   // ✅ Tambah validasi instansi
-        //     'jurusan' => 'required', 
+        //     'jurusan' => 'required',
         // ]);
 
         // Peserta::create([
@@ -220,12 +219,12 @@ public function pesertaTerdaftar()
         //     'no_hp' => $request->no_hp,
         //     'alamat' => $request->alamat,
         //     'instansi' => $request->instansi,  // ✅ Simpan instansi
-        //     'jurusan' => $request->jurusan, 
+        //     'jurusan' => $request->jurusan,
         //     'status' => 'Menunggu'
         // ]);
 
         // return redirect()->route('mahasiswa.peserta.index')->with('success', 'Peserta berhasil ditambahkan!');
-    
+
     }
 
      public function edit($id)

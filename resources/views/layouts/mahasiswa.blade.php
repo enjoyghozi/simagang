@@ -8,8 +8,19 @@
   <title>@yield('title', 'SIMAGANG')</title>
 
   <!-- Custom fonts -->
-  <link href="{{ asset('templateadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <link href="{{ asset('templateadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+    <style>
+        #myTable_filter {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        #myTable_filter label { margin: 0; }
+        #myTable_filter input[type="search"] { width: 180px; }
+    </style>
 
   <!-- Custom styles -->
   <link href="{{ asset('/templateadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -38,7 +49,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-      @if (auth()->check() && auth()->user()->role === 'peserta' && auth()->user()->status_akun === 'diterima') 
+      @if (auth()->check() && auth()->user()->role === 'peserta' && auth()->user()->status_akun === 'diterima')
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/mahasiswa/pendaftaran') }}">
           <i class="fas fa-fw fa-user-plus"></i>
@@ -74,8 +85,8 @@
 
       <!-- Sidebar Footer -->
       <div class="text-center d-flex flex-column align-items-center mb-3">
-        <img src="{{ asset('images/logoblora.png') }}" 
-             alt="Dinkominfo Logo" 
+        <img src="{{ asset('images/logoblora.png') }}"
+             alt="Dinkominfo Logo"
              style="width:40px; height:auto; margin-bottom:5px;">
         <span class="text-white small">DINAS KOMUNIKASI DAN INFORMATIKA KAB. BLORA</span>
       </div>
@@ -100,7 +111,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- Nama user tetap tampil di mobile -->
-                <span class="mr-2 text-gray-600 small">{{ Auth::user()->name }}</span>
+                <span class="mr-2 text-gray-600 small">{{ Auth::user()?->name }}</span>
                 <img class="img-profile rounded-circle" src="{{ asset('templateadmin/img/undraw_profile.svg') }}">
               </a>
 
@@ -143,18 +154,30 @@
       </footer>
       <!-- End of Footer -->
     </div>
-  </div>
+</div>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-  <!-- JS -->
-  <script src="{{ asset('/templateadmin/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('/templateadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('/templateadmin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ asset('/templateadmin/js/sb-admin-2.min.js') }}"></script>
+    <!-- JS -->
+    <script src="{{ asset('/templateadmin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/templateadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/templateadmin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('/templateadmin/js/sb-admin-2.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+    <!-- jQuery (wajib sebelum DataTables JS) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
 
   @yield('scripts')
 </body>

@@ -10,7 +10,7 @@
     <hr class="sidebar-divider my-2">
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/admin/dashboard') }}">
+            <a class="nav-link" href="{{ url('/') }}">
                 <i class="fas fa-fw fa-home"></i>
                 <span>Dashboard</span>
             </a>
@@ -63,8 +63,8 @@
 
 <!-- Sidebar Footer -->
 <div class="text-center d-flex flex-column align-items-center mb-3">
-    <img src="{{ asset('images/logoblora.png') }}" 
-         alt="Dinkominfo Logo" 
+    <img src="{{ asset('images/logoblora.png') }}"
+         alt="Dinkominfo Logo"
          style="width:40px; height:auto; margin-bottom:5px;">
     <span class="text-white small">DINAS KOMUNIKASI DAN INFORMATIKA KAB. BLORA</span>
 </div>

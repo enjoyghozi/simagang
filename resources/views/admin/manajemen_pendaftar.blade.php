@@ -4,16 +4,16 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center justify-content-between mb-3">
-            <h3 class="mr-3">Kelola Data Peserta</h3> 
+            <h3 class="mr-3">Kelola Data Peserta</h3>
             <span>
                 @if(strtolower($pendaftar->status) === 'diterima')
                     <span class="badge bg-success px-3 py-2 text-white">Diterima</span>
                 @elseif(strtolower($pendaftar->status === 'ditolak'))
                     <span class="badge bg-danger px-3 py-2 text-white">Ditolak</span>
-                @elseif(strtolower($pendaftar->status === 'Menunggu Verifikasi'))
+                @elseif(strtolower($pendaftar->status === 'pending'))
                     <span class="badge bg-warning text-dark px-3 py-2 text-white">Pending</span>
                 @else
-                    <span class="badge bg-secondary px-3 py-2 text-white">{{strtolower( $pendaftar->status ?? '-' )}}</span>
+                    <span class="badge bg-primary px-3 py-2 text-white">{{strtolower( $pendaftar->status ?? '-' )}}</span>
                 @endif
             </span>
         </div>
@@ -23,8 +23,8 @@
         @csrf
         @method('PUT') <!-- wajib untuk update -->
         <div class="mb-3">
-            <a href="{{ asset('storage/' . $pendaftar->surat_pengantar) }}" 
-            target="_blank" 
+            <a href="{{ asset('storage/' . $pendaftar->surat_pengantar) }}"
+            target="_blank"
             class="btn btn-outline-info d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm"
             style="text-decoration:none;">
                 <i class="bi bi-file-earmark-pdf" style="font-size:1.2rem;"></i>
@@ -46,7 +46,7 @@
             <label>Jurusan</label>
             <input type="text" name="jurusan" value="{{ old('jurusan', $pendaftar->jurusan) }}" class="form-control" placeholder="Input jurusan" readonly>
         </div>
-        
+
         <div class="mb-3">
             <label>Instansi</label>
             <input type="text" name="instansi" value="{{ old('instansi', $pendaftar->instansi) }}" class="form-control" readonly>
@@ -57,7 +57,7 @@
             <input class="form-control" type="file" id="surat_balasan" name="surat_balasan">
 
             @if($pendaftar->surat_balasan)
-                <small>File saat ini: 
+                <small>File saat ini:
                     <a href="{{ asset('storage/surat_balasan/'.$pendaftar->surat_balasan) }}" target="_blank">
                         {{ $pendaftar->surat_balasan }}
                     </a>
@@ -73,7 +73,7 @@
             <input class="form-control" type="file" id="surat_selesai" name="surat_selesai">
 
             @if($pendaftar->surat_selesai)
-                <small>File saat ini: 
+                <small>File saat ini:
                     <a href="{{ asset('storage/surat_selesai/'.$pendaftar->surat_selesai) }}" target="_blank">
                         {{ $pendaftar->surat_selesai }}
                     </a>
@@ -86,19 +86,21 @@
         </div>
 
 
-        
+
         <div class="d-flex gap-3 justify-content-between">
            <div>
                 @if (@strtolower($pendaftar->status == 'diterima'))
+                    <a href="{{ url('/admin/pendaftaran') }}" class="btn btn-secondary btn-sm">Kembali</a>
+                    <button type="submit" class="btn btn-primary btn-sm">Selesai Magang</button>
+                @elseif (@strtolower($pendaftar->status) == 'selesai')
+                    <a href="{{ url('/admin/pendaftaran') }}" class="btn btn-secondary btn-sm">Kembali</a>
+                @else
                     <button type="submit" class="btn btn-success btn-sm">Terima</button>
                     <form action="{{ route('admin.pendaftaran.aksi', $pendaftar->id) }}" method="POST" class="d-inline">
                         @csrf
                         <input type="hidden" name="status" value="ditolak">
                         <button class="btn btn-danger btn-sm">Tolak</button>
                     </form>
-                @else
-                    <a href="{{ url('/admin/pendaftaran') }}" class="btn btn-secondary btn-sm">Kembali</a>
-                    <button type="submit" class="btn btn-primary btn-sm">Selesai Magang</button>
                 @endif
 
             </div>
@@ -123,9 +125,9 @@
                     <button class="btn btn-secondary btn-sm" style="width: 35px; height: 35px;" disabled>
                         <i class="bi bi-x"></i>
                     </button>
-                @endif 
-            </div>    
-        </div>  
+                @endif
+            </div>
+        </div>
 
     </form>
 </div>

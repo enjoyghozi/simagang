@@ -16,9 +16,9 @@ class MonitoringPenilaianController extends Controller
      */
     public function index()
     {
- $pesertas = Peserta::with('user')->get(); 
- return view('admin\monitoring_penilaian', compact('pesertas'));
-// echo json_encode($pesertas);
+        $pesertas = Peserta::with('user')->get();
+        return view('admin\monitoring_penilaian', compact('pesertas'));
+        // echo json_encode($pesertas);
     }
 
     /**
@@ -70,7 +70,7 @@ $request->validate([
         // Penilaian::create([...]);
 
         return redirect()->back()->with('success', 'Data penilaian berhasil disimpan.');
-    }    
+    }
 
 
     /**

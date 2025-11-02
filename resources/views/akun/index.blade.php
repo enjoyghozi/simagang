@@ -30,7 +30,7 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ ucfirst($user->role) }}</td>
                             <td>
-                                @if($user->status_akun == "menunggu")
+                                @if($user->status_akun == "pending")
                                 <a href="{{ route('akun.status', ['id' => $user->id, 'status' => 'diterima']) }}" class="btn btn-primary btn-sm">Diterima</a>
                                 <a href="{{ route('akun.status', ['id' => $user->id, 'status' => 'ditolak']) }}" class="btn btn-danger btn-sm">Ditolak</a>
                                 <a href="{{ route('akun.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>

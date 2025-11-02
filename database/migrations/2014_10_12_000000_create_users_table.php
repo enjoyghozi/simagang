@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('instansi')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('status_akun');
+            $table->string('status_akun')->default('pending');
             $table->rememberToken();
             $table->timestamps();
         });

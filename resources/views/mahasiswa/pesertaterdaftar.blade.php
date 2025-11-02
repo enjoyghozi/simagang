@@ -42,7 +42,7 @@
                             <span class="badge badge-success">Diterima</span>
                         @elseif($status === 'ditolak')
                             <span class="badge badge-danger">Ditolak</span>
-                        @elseif($peserta->status === 'Menunggu Verifikasi')
+                        @elseif($peserta->status === 'pending')
                             <span class="badge badge-warning">Pending</span>
                         @else
                             <span class="badge badge-secondary">{{ $peserta->status ?? '-' }}</span>
@@ -56,13 +56,13 @@
                             </a>
 
                             <div class="div">
-                                <form action="{{ route('mahasiswa.peserta.destroy', $peserta->id) }}" 
-                                    method="POST" 
+                                <form action="{{ route('mahasiswa.peserta.destroy', $peserta->id) }}"
+                                    method="POST"
                                     onsubmit="return confirm('Yakin ingin menghapus data ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i> 
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </div>

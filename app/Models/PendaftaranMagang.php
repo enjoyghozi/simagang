@@ -10,7 +10,5 @@ class PendaftaranMagang extends Model
     use HasFactory;
 
       protected $table = 'pendaftaran_magang'; // sesuaikan dengan nama tabel di database jika perlu
-    protected $fillable = [
-       'id', 'nama_lengkap', 'nim', 'prodi', 'semester', 'no_hp', 'alamat', 'email', 'surat_pengantar', 'bidang_magang',
-    ];
+    protected $guarded = [];
 }

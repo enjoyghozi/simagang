@@ -24,7 +24,7 @@
     #myTable_filter input[type="search"] { width: 180px; }
 
   </style>
-  
+
 
   <!-- Custom styles -->
   <link href="{{ asset('/templateadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -78,18 +78,18 @@
   <script src="{{ asset('/templateadmin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
   <script src="{{ asset('/templateadmin/js/sb-admin-2.min.js') }}"></script>
   <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-  
-<!-- jQuery (wajib sebelum DataTables JS) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-  <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
-  </script>
+    <!-- jQuery (wajib sebelum DataTables JS) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
 
   @yield('scripts')
 
